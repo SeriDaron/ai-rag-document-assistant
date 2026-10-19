@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { SAMPLE_NAME, SAMPLE_TEXT } from "@/lib/sample";
 import { chunkText } from "@/lib/chunk";
+import AnswerText from "./AnswerText";
 import type { AskResponse, Chunk, IngestResponse, Source } from "@/lib/types";
 
 interface DocumentInfo {
@@ -234,7 +235,7 @@ export default function ChatApp() {
                     : "max-w-2xl rounded-2xl rounded-bl-sm border border-slate-800 bg-[#111827] px-4 py-3 text-sm"
                 }
               >
-                <p className="whitespace-pre-wrap leading-relaxed">{m.text}</p>
+                {m.role === "assistant" ? <AnswerText text={m.text} /> : <p className="leading-relaxed">{m.text}</p>}
                 {m.sources && m.sources.length > 0 && (
                   <details className="mt-3 border-t border-slate-800 pt-2">
                     <summary className="cursor-pointer text-xs text-slate-400 hover:text-slate-200">
