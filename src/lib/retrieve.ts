@@ -68,9 +68,12 @@ export function bestSentences(question: string, text: string, max = 2): string {
   const terms = new Set(tokenize(question));
   const wantsNumber = /\bhow (many|much|long|often)\b|\bwhen\b|\bdeadline\b|\blimit\b|\bbudget\b/i.test(question);
 
-  // Split on sentence ends followed by a capital/digit (keeps "1.5" and "e.g." intact) and on newlines.
-  const all = text
-    .split(/(?<=[.!?])\s+(?=[A-Z0-9])|\n+/)
+  // PDFs often hard-wrap lines mid-sentence: join single line breaks, keep paragraph breaks.
+  const joined = text.replace(/(?<!\n)\n(?!\n)/g, " ");
+
+  // Split on sentence ends followed by a capital/digit (keeps "1.5" and "e.g." intact) and on paragraph breaks.
+  const all = joined
+    .split(/(?<=[.!?])\s+(?=[A-Z0-9])|\n{2,}/)
     .map((s) => s.trim())
     .filter(Boolean);
 
