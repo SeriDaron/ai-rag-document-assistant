@@ -2,6 +2,8 @@
 
 Ask questions about your documents and get cited answers. Built with **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**, and the **Anthropic Claude API**.
 
+**Live demo:** [ai-rag-document-assistant-tau.vercel.app](https://ai-rag-document-assistant-tau.vercel.app)
+
 ![DocuMind answering questions about a sample employee handbook](docs/screenshot.png)
 
 > **Demo note:** the app runs without any API key in **demo mode**: it retrieves the most relevant passages from your document and shows the best-matching sentence (retrieval only, no LLM). Add an `ANTHROPIC_API_KEY` and the same retrieval feeds Claude, which writes a grounded answer with citations.
