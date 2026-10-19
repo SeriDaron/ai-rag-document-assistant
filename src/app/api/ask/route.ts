@@ -112,8 +112,13 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof Anthropic.APIError) {
       console.error("[ask] Anthropic API error:", error.status, error.message);
+      // Show the real reason during local development; keep a generic message in production.
+      const detail =
+        process.env.NODE_ENV !== "production"
+          ? ` (${error.status ?? "no status"}: ${error.message})`
+          : "";
       return NextResponse.json(
-        { error: "The AI service is temporarily unavailable. Please try again." },
+        { error: `The AI service is temporarily unavailable. Please try again.${detail}` },
         { status: 502 }
       );
     }
